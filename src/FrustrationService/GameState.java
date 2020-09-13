@@ -3,17 +3,11 @@ package FrustrationService;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import FrustrationService.Card.Rank;
 import FrustrationService.Card.Suit;
 
-@XmlRootElement(name = "game")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class GameState {
-	private List<Card> deck;
+	private Deck deck;
 
 	private List<Card> discardPile;
 	
@@ -24,6 +18,9 @@ public class GameState {
 	public GameState(List<String> names) {
 		super();
 		
+		// TODO: Move game set up to separate method
+		this.deck = new Deck(2, true);
+		this.deck.shuffleDeck();
 		this.playerTurn = 0;
 		this.discardPile = new ArrayList<>();
 		this.discardPile.add(new Card(Suit.Heart, Rank.Ten));
@@ -41,25 +38,11 @@ public class GameState {
 			
 			this.players.add(newPlayer);
 		}
-		
-		List<Card> hand = new ArrayList<>();
-		hand.add(new Card(Suit.Diamond, Rank.Ace));
-		hand.add(new Card(Suit.Diamond, Rank.Two));
-		hand.add(new Card(Suit.Heart, Rank.Three));
-		hand.add(new Card(Suit.Heart, Rank.Four));
-		hand.add(new Card(Suit.Spade, Rank.Five));
-		hand.add(new Card(Suit.Spade, Rank.Six));
-		hand.add(new Card(Suit.Club, Rank.Seven));
-		hand.add(new Card(Suit.Club, Rank.Eight));
-		hand.add(new Card(Suit.Diamond, Rank.Nine));
-		hand.add(new Card(Suit.Diamond, Rank.Ten));
-		hand.add(new Card(Suit.Heart, Rank.Jack));
-		hand.add(new Card(Suit.Heart, Rank.Queen));
-		hand.add(new Card(Suit.Spade, Rank.King));
-		hand.add(new Card(Suit.Spade, Rank.Joker));
 
-		if (this.players.size() > 0) {
-			this.players.get(0).setHand(hand);
+		for(int i = 0; i < 13; i++) {
+			for (PlayerState player:this.players) {
+				player.addToHand(deck.getNextCard());
+			}
 		}
 	}
 	
@@ -67,5 +50,7 @@ public class GameState {
 		super();
 	}
 	
-	
+	public GameDTO getAsDTO() {
+		return new GameDTO(this.deck.getCardCount(), null, this.playerTurn, this.players);
+	}
 }

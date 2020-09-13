@@ -27,8 +27,8 @@ public class PlayerState {
 		super();
 	}
 	
-	public void setHand(List<Card> hand) {
-		this.hand = hand;
+	public void addToHand(Card card) {
+		this.hand.add(card);
 	}
 	
 	public void addMeld(Meld meld) {

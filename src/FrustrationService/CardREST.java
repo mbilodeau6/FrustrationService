@@ -17,6 +17,6 @@ public class CardREST {
 		List<String> names = Arrays.asList("Michael", "Lisa", "Terry", "Julien");
 		GameState gameState = new GameState(names);
 		
-		return Response.ok().entity(gameState).build();
+		return Response.ok().entity(gameState.getAsDTO()).build();
 	}
 }
