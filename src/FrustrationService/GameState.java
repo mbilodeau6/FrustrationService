@@ -58,10 +58,14 @@ public class GameState {
 		hand.add(new Card(Suit.Spade, Rank.King));
 		hand.add(new Card(Suit.Spade, Rank.Joker));
 
-		this.players.get(0).setHand(hand);;
+		if (this.players.size() > 0) {
+			this.players.get(0).setHand(hand);
+		}
 	}
 	
 	protected GameState() {
 		super();
 	}
+	
+	
 }
