@@ -7,6 +7,9 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import FrustrationService.Card.Rank;
+import FrustrationService.Card.Suit;
+
 @XmlRootElement(name = "game")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GameState {
@@ -23,6 +26,24 @@ public class GameState {
 		
 		this.players = new ArrayList<>();
 		names.forEach(each -> this.players.add(new PlayerState(each)));
+		
+		List<Card> hand = new ArrayList<>();
+		hand.add(new Card(Suit.Diamond, Rank.Ace));
+		hand.add(new Card(Suit.Diamond, Rank.Two));
+		hand.add(new Card(Suit.Heart, Rank.Three));
+		hand.add(new Card(Suit.Heart, Rank.Four));
+		hand.add(new Card(Suit.Spade, Rank.Five));
+		hand.add(new Card(Suit.Spade, Rank.Six));
+		hand.add(new Card(Suit.Club, Rank.Seven));
+		hand.add(new Card(Suit.Club, Rank.Eight));
+		hand.add(new Card(Suit.Diamond, Rank.Nine));
+		hand.add(new Card(Suit.Diamond, Rank.Ten));
+		hand.add(new Card(Suit.Heart, Rank.Jack));
+		hand.add(new Card(Suit.Heart, Rank.Queen));
+		hand.add(new Card(Suit.Spade, Rank.King));
+		hand.add(new Card(Suit.Spade, Rank.Joker));
+
+		this.players.get(0).setHand(hand);;
 	}
 	
 	protected GameState() {
