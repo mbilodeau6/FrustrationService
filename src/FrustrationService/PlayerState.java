@@ -30,4 +30,8 @@ public class PlayerState {
 	public void setHand(List<Card> hand) {
 		this.hand = hand;
 	}
+	
+	public void addMeld(Meld meld) {
+		this.melds.add(meld);
+	}
 }

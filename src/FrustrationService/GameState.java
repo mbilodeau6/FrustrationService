@@ -24,8 +24,23 @@ public class GameState {
 	public GameState(List<String> names) {
 		super();
 		
+		this.playerTurn = 0;
+		this.discardPile = new ArrayList<>();
+		this.discardPile.add(new Card(Suit.Heart, Rank.Ten));
+		
 		this.players = new ArrayList<>();
-		names.forEach(each -> this.players.add(new PlayerState(each)));
+		for (String name:names) {
+			PlayerState newPlayer = new PlayerState(name);
+			
+			for(int i=0; i < 3; i++) {
+				List<Card> meldCards = new ArrayList<>();
+				meldCards.add(new Card(Suit.Diamond, Rank.Seven));
+				Meld meld = new Meld(meldCards);
+				newPlayer.addMeld(meld);
+			}
+			
+			this.players.add(newPlayer);
+		}
 		
 		List<Card> hand = new ArrayList<>();
 		hand.add(new Card(Suit.Diamond, Rank.Ace));
