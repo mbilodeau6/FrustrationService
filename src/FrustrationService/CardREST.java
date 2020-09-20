@@ -29,12 +29,15 @@ public class CardREST {
 	}
 	
 	@GET
-	@Path("{gameId}")
+	@Path("{gameId}/{playerId}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getGame(@PathParam("gameId") String gameId) {
+	public Response getGame(@PathParam("gameId") String gameId, @PathParam("playerId") Integer playerId) {
 		// TODO: Add error handling if gameId doesn't exist
 		GameState gameState = games.get(gameId);
 		
+		if (gameState == null)
+				return Response.status(Response.Status.BAD_REQUEST).entity("Invalid GameId: " + gameId).build();	
+			
 		return Response.ok().entity(gameState.getAsDTO()).build();
 	}
 }
